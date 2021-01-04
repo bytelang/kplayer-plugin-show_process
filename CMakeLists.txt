@@ -24,13 +24,13 @@ include_directories(./
         ${PROJECT_SOURCE_DIR}/plugin-pkg)
 
 # shared library
-add_library(KPVideoShowProcessPlugin SHARED KPVideoShowProcessPlugin.cpp)
+add_library(VideoShowProcessPlugin SHARED KPVideoShowProcessPlugin.cpp)
 
 # compile flags
-target_compile_options(KPVideoShowProcessPlugin PRIVATE -fPIC -fvisibility=hidden)
+target_compile_options(VideoShowProcessPlugin PRIVATE -fPIC -fvisibility=hidden)
 
 # link flags
 if (APPLE)
-    set_target_properties(KPVideoShowProcessPlugin PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+    set_target_properties(VideoShowProcessPlugin PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
 endif ()
 
