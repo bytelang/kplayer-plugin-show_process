@@ -51,18 +51,25 @@ void KPVideoShowProcessPlugin::Task() {
         auto              current_seek     = kplayer_plugin_driver->PluginDriverGetCurrentPlayMediaSeekTime();
         auto              current_duration = kplayer_plugin_driver->PluginDriverGetCurrentPlayMediaDuration();
 
-        int seek_hour   = floor(current_seek / 3600);
-        int seek_minute = floor(int(current_seek) % 3600 / 60);
+        // 解决毫秒展示抖动问题
+        if (current_seek < last_seek_time) {
+            continue;
+        }
+
+        int seek_hour   = ceil(current_seek / 3600);
+        int seek_minute = ceil(int(current_seek) % 3600 / 60);
         int seek_second = int(current_seek) % 60;
 
-        int duration_hour   = floor(current_duration / 3600);
-        int duration_minute = floor(int(current_duration) % 3600 / 60);
+        int duration_hour   = ceil(current_duration / 3600);
+        int duration_minute = ceil(int(current_duration) % 3600 / 60);
         int duration_second = int(current_duration) % 60;
 
         char time[200];
         sprintf(time, "%02d:%02d:%02d / %02d:%02d:%02d", seek_hour, seek_minute, seek_second, duration_hour, duration_minute, duration_second);
 
         SetPluginValue(std::map<std::string, std::string>{{"text", time}});
+
+        last_seek_time = current_seek;
     } while (!stop);
 }
 

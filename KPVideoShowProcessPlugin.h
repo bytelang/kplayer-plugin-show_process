@@ -27,6 +27,8 @@ protected:
     void Task() override;
     bool        stop       = false;
     int         ret        = 0;
+
+    double_t last_seek_time = 0;
 public:
     explicit KPVideoShowProcessPlugin(const std::string &identify_name, const std::string &filter_name, const KPFilterType &filter_type, PluginParamsObject plugin_params_object);
     ~KPVideoShowProcessPlugin() override;
